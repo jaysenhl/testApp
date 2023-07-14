@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Shopping Cart App test</h1>
+    <h2>Database by Appwrite</h2>
+
+    <input id="inputElement" type="text">
+    <button id="buttonElement">Send</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@10.1.0"></script>
+    <script>
+        const client = new Appwrite.Client();
+        const database = new Appwrite.Database(client);
+
+        client
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('64b1ca0be3389194873f');
+
+        const inputElement = document.getElementById('inputElement');
+        const button = document.getElementById('buttonElement');
+
+        button.addEventListener('click', async () => {
+            const inputValue = inputElement.value;
+            try {
+                const result = await database.createDocument(
+                    '64b1cd38b0ac25eb6098', 
+                    { 'inputValue': inputValue }
+                );
+                console.log(result); // Log the response from Appwrite
+            } catch (e) {
+                console.log(e); // Log any errors
+            }
+        });
+    </script>
+</body>
+</html>
